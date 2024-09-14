@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Websocket</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Geologica" rel="stylesheet"> <!-- Link to Digital-7 font -->
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <!-- <h1>APP CHAT</h1> -->
+    <div class="container">
+        <div class="chat-container">
+            <div id="chat-column" class="position-relative">
+                <div class="searchform p-2">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white" id=""> <i class="fa fa-search"></i></span>
+                        </div>
+                        <input type="search" class="form-control" id="searchBox" placeholder="Tìm kiếm..." />
+                        <div class="countResult"><span></span></div>
+                        <div class="input-group-append">
+                            <span class="input-group-text bg-white btn closeSearchBox" id="">Hủy</span>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" class="btn-load-more">
+                <div id="chat" class="overflow-auto border-bottom border-top"></div>
+                <div class="p-1 position-relative">
+                    <div style="display:none" class="scrollBottom" onclick=scrollToBottom()><svg width="20" height="20"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#2B2C33"
+                            gradientcolor1="#2B2C33" gradientcolor2="#2B2C33">
+                            <path
+                                d="M4.22 8.47a.75.75 0 0 1 1.06 0L12 15.19l6.72-6.72a.75.75 0 1 1 1.06 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L4.22 9.53a.75.75 0 0 1 0-1.06Z">
+                            </path>
+                        </svg>
+                    </div>
+                    <div class="contentReply d-flex align-items-center">
+                    </div>
+                    <div id="input-area">
+                        <textarea type="text" id="input-msg" class="form-control"
+                            placeholder="Nhập tin nhắn"></textarea>
+                        <button id="send" class="btn btn-primary send-msg"><i class="fa fa-paper-plane"
+                                aria-hidden="true"></i>
+                            Gửi</button>
+                    </div>
+                </div>
+            </div>
+            <div id="control-column">
+                <div class="info p-1">
+                    <div class="member"><img width="25" height="25"
+                            src="https://img.icons8.com/ios-filled/50/1A1A1A/user-male-circle.png"
+                            alt="user-male-circle" /><span></span></div>
+                    <button type="button" class="btn btn-outline-dark" onclick=logOut()><i class="fa fa-sign-out"
+                            aria-hidden="true"></i>
+                        Thoát</button>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-between">
+                        <!-- <div class="title">Tin chưa rep</div>
+                        <div class="count-noReply"></div> -->
+                        <div class="result-option result-option-verbal">
+                            <div class="icon-box">
+                                <img width="20" height="20"
+                                    src="https://img.icons8.com/ios/50/speech-bubble-with-dots--v1.png"
+                                    alt="speech-bubble-with-dots--v1" />
+                                <span class="verbal-icon-text">Tin chưa rep</span>
+                            </div>
+                            <div class="result-box"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+</body>
+<footer>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/smooth-scroll@16/dist/smooth-scroll.polyfills.min.js"></script>
+    <script src="/main.js"></script>
+</footer>
+
+</html>

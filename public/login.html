@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Paytone One" rel="stylesheet"> <!-- Link to Digital-7 font -->
+    <link rel="icon" href="/public/icon.ico" type="image/x-icon">
+    <style>
+        body {
+            background: #f0f2f5;
+            /* Light gray background for the entire page */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Paytone One', sans-serif;
+        }
+
+        .container {
+            background: #ffffff;
+            /* White background for the container */
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .container:hover {
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            margin-bottom: 1rem;
+            color: #333;
+            /* Dark gray text color */
+            font-weight: 700;
+            /* Bold for Digital-7 */
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: #555;
+            /* Medium gray text color */
+        }
+
+        .form-control {
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            /* Light gray border */
+            background-color: #f9f9f9;
+            /* Slightly off-white background for inputs */
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #333;
+            /* Dark gray border on focus */
+            box-shadow: 0 0 0 0.2rem rgba(51, 51, 51, 0.2);
+            /* Soft dark shadow on focus */
+        }
+
+        .btn-dark {
+            border-radius: 8px;
+            padding: 0.75rem;
+            font-size: 1rem;
+        }
+
+        #error-message {
+            font-size: 0.9rem;
+            color: #d9534f;
+            /* Bootstrap danger color for errors */
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2 class="text-center">Đăng nhập</h2>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="username">Tên tài khoản</label>
+                <input type="text" id="username" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Mật khẩu</label>
+                <input type="password" id="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-dark btn-block">Đăng nhập</button>
+        </form>
+        <div id="error-message" class="text-danger mt-3" style="display:none;"></div>
+    </div>
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        localStorage.setItem('userData', JSON.stringify({
+                            username: data.username,
+                            role: data.role
+                        }));
+                        window.location.href = '/';
+                    } else {
+                        document.getElementById('error-message').textContent = 'Sai tên tài khoản hoặc mật khẩu';
+                        document.getElementById('error-message').style.display = 'block';
+                    }
+                });
+        });
+    </script>
+</body>
+
+</html>
